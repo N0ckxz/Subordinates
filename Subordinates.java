@@ -34,6 +34,10 @@ public class Subordinates {
     }
 
     static void solve(int node) {
-        
+        for (int child : adj[node]) {
+            solve(child);
+
+            subordinates[node] + subordinates[child] + 1;
+        }
     }
 }
