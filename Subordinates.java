@@ -27,17 +27,27 @@ public class Subordinates {
             childCount[boss]++; // Contamos cuántos hijos directos tiene cada jefe
         }
 
-        subordinates = new int[n + 1];
-        
-        // Iniciamos el cálculo desde el Director General (nodo 1)
-        solve(1);
-
-        // Hecho con IA, basicamente es un metodo de impresion mas rapido
-        StringBuilder sb = new StringBuilder();
+        Deque<Integer> queue = new ArrayDeque<>(); //cola para procesar hijos pendientes
         for (int i = 1; i <= n; i++) {
-            sb.append(subordinates[i]).append(i == n ? "" : " ");
+            if (childCount[i] == 0) {
+                queue.add(i);
+            }
         }
-        System.out.println(sb.toString());
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            
+            int boss = parent[current];
+            if (boss != 0) {
+
+                subordinates[boss] += (subordinates[current] + 1);
+                childCount[boss]--;
+                
+                if (childCount[boss] == 0) {
+                    queue.add(boss);
+                }
+            }
+        }
     }
 
     static void solve(int node) {
