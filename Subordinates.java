@@ -50,11 +50,10 @@ public class Subordinates {
         }
     }
 
-    static void solve(int node) {
-        for (int child : adj[node]) {
-            solve(child);
-
-            subordinates[node] += subordinates[child] + 1;
+    StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= n; i++) {
+            sb.append(subordinates[i]).append(i == n ? "" : " ");
         }
+        System.out.println(sb.toString());
     }
 }
